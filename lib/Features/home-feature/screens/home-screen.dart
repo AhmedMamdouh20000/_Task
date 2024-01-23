@@ -52,206 +52,231 @@ class HomePage extends StatelessWidget {
                 ),
               ],
             ),
-            body: TabBarView(
-              children: [
-                ListView.builder(
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () async {
-                        const url = 'https://dummyjson.com/posts';
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else {
-                          throw 'Could not launch $url';
-                        }
-                      },
+            body: NotificationListener<ScrollNotification>(
+              onNotification: (notification) {
+                // print(notification);
+                if(notification.metrics.pixels==notification.metrics.maxScrollExtent&& notification is ScrollUpdateNotification)
+                  {
+                   print('Loading');
+                   HomeCubit cubit = BlocProvider.of(context);
+                   cubit.getPost();
+                  }
+                return true ;
+              },
+              child: TabBarView(
+                children: [
+                  ListView.builder(
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () async {
+                          const url = 'https://dummyjson.com/posts';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        },
 
-                        child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          padding: const EdgeInsetsDirectional.all(15),
-                          margin: const EdgeInsetsDirectional.only( top: 10),
-                          decoration: Decorations.kDecorationBoxShadow(radius: 12),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    '${cubit.posts[index].id   }:',
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      '${cubit.posts[index].title  }',
+                          child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            padding: const EdgeInsetsDirectional.all(15),
+                            margin: const EdgeInsetsDirectional.only( top: 10),
+                            decoration: Decorations.kDecorationBoxShadow(radius: 12),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      '${cubit.posts[index].id   }:',
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 1,
-
-
                                       style: const TextStyle(
                                         fontSize: 16,
                                         color: Colors.black,
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                '${cubit.posts[index].body}',
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
-
-                                style: const TextStyle(
-                                  fontSize: 13,
-                                  color: Colors.black,
+                                    Expanded(
+                                      child: Text(
+                                        '${cubit.posts[index].title  }',
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  '${cubit.posts[index].body}',
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontSize: 13,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
 
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                  itemCount: cubit.posts.length,
-                ),
-                ListView.builder(
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        padding: const EdgeInsetsDirectional.all(15),
-                        margin: const EdgeInsetsDirectional.only( top: 10),
-                        decoration: Decorations.kDecorationBoxShadow(radius: 12),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
+                      );
+                    },
+                    itemCount: cubit.posts.length,
+                  ),
+                  ListView.builder(
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () async {
+                          const url = 'https://dummyjson.com/posts';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        },
+
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            padding: const EdgeInsetsDirectional.all(15),
+                            margin: const EdgeInsetsDirectional.only( top: 10),
+                            decoration: Decorations.kDecorationBoxShadow(radius: 12),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      '${cubit.posts[index].id   }:',
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        '${cubit.posts[index].title  }',
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 Text(
-                                  '${cubit.posts[index].id   }:',
+                                  '${cubit.posts[index].body}',
+                                  maxLines: 3,
                                   overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
                                   style: const TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 13,
                                     color: Colors.black,
                                   ),
                                 ),
-                                Expanded(
-                                  child: Text(
-                                    '${cubit.posts[index].title  }',
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-
-
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                    ),
-                                  ),
+                                const SizedBox(
+                                  height: 10,
                                 ),
+
                               ],
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              '${cubit.posts[index].body}',
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-
-                              style: const TextStyle(
-                                fontSize: 13,
-                                color: Colors.black,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-
-                          ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  itemCount: cubit.posts.length,
-                ),
-                ListView.builder(
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        padding: const EdgeInsetsDirectional.all(15),
-                        margin: const EdgeInsetsDirectional.only( top: 10),
-                        decoration: Decorations.kDecorationBoxShadow(radius: 12),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
+                      );
+                    },
+                    itemCount: cubit.posts.length,
+                  ),
+                  ListView.builder(
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () async {
+                          const url = 'https://dummyjson.com/posts';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        },
+
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            padding: const EdgeInsetsDirectional.all(15),
+                            margin: const EdgeInsetsDirectional.only( top: 10),
+                            decoration: Decorations.kDecorationBoxShadow(radius: 12),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      '${cubit.posts[index].id   }:',
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        '${cubit.posts[index].title  }',
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
                                 Text(
-                                  '${cubit.posts[index].id   }:',
+                                  '${cubit.posts[index].body}',
+                                  maxLines: 3,
                                   overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
                                   style: const TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 13,
                                     color: Colors.black,
                                   ),
                                 ),
-                                Expanded(
-                                  child: Text(
-                                    '${cubit.posts[index].title  }',
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-
-
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                    ),
-                                  ),
+                                const SizedBox(
+                                  height: 10,
                                 ),
+
                               ],
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              '${cubit.posts[index].body}',
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-
-                              style: const TextStyle(
-                                fontSize: 13,
-                                color: Colors.black,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-
-                          ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  itemCount: cubit.posts.length,
-                ),
-              ],
+                      );
+                    },
+                    itemCount: cubit.posts.length,
+                  ),
+                ],
+              ),
             ),
           ),
         );

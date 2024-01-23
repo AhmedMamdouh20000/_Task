@@ -10,21 +10,21 @@ class HomeCubit extends Cubit<HomeStates> {
 
   static HomeCubit get(context) => BlocProvider.of(context);
 
-
   List<PostModel> posts = [];
+  int pageNumber = 1;
+  int limit = 7;
+
 
   Future<List<PostModel>> getPost() async {
     emit(HomeLoading());
     try {
       Response response = await DioHelper.getData(
-        url: "https://dummyjson.com/posts",
+        url: "https://dummyjson.com/posts?post=$posts&page=$pageNumber&limit=$limit",
         data: {},
       );
-
       print("+++++++++++++response++++++++++++++");
       print(response.data);
-
-
+      limit= limit + 3 ;
       if (response.data['posts'] != null && response.data['posts'] is List) {
         posts = (response.data['posts'] as List).map((json) =>
             PostModel.fromJson(json)).toList();

@@ -11,7 +11,7 @@ class DioHelper {
   static init() {
     dio = Dio(
       BaseOptions(
-        baseUrl:'https://dummyjson.com',
+        baseUrl:'https://www.reddit.com/dev/api/#GET_api_live_happening_now',
         receiveDataWhenStatusError: true,
         headers: {
           "Content-Type": "application/json;charset=UTF-8",
